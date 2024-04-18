@@ -1,0 +1,181 @@
+<html>
+<head>
+<title>Cafeteria Menu</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: red;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .menu-item {
+        margin-bottom: 15px;
+    }
+    .menu-item label {
+        display: inline-block;
+        width: 200px;
+    }
+    .menu-item select {
+        width: 100px;
+    }
+    .error-message {
+        color: red;
+    }
+    .submit-button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .submit-button:hover {
+        background-color: #45a049;
+    }
+    @media only screen and (max-width: 600px) {
+        .menu-item label {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Menu</h1>
+    <form id="order-form">
+        <div class="menu-item">
+            <label for="burger">Burger:</label>
+            <select id="burger" name="burger" onchange="updateTotal()">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div class="menu-item">
+            <label for="pizza">Pizza:</label>
+            <select id="pizza" name="pizza" onchange="updateTotal()">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div class="menu-item">
+            <label for="sandwich">Sandwich:</label>
+            <select id="sandwich" name="sandwich" onchange="updateTotal()">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div class="menu-item">
+            <label for="pasta">Pasta:</label>
+            <select id="pasta" name="pasta" onchange="updateTotal()">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div class="menu-item">
+            <label for="salad">Salad:</label>
+            <select id="salad" name="salad" onchange="updateTotal()">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <button type="button" class="submit-button" onclick="submitOrder()">Submit Order</button>
+    </form>
+    <div id="error-messages" class="error-message" style="display: none;"></div>
+</div>
+
+<script>
+function updateTotal() {
+    let total = 0;
+    const items = document.querySelectorAll('select');
+    items.forEach(item => {
+        total += parseInt(item.value);
+    });
+    document.getElementById('total').innerText = total;
+}
+
+function submitOrder() {
+    const items = document.querySelectorAll('select');
+    let isValid = true;
+    let errorMessages = "";
+
+    items.forEach(item => {
+        if (parseInt(item.value) < 0 || parseInt(item.value) > 10 || isNaN(parseInt(item.value))) {
+            isValid = false;
+            errorMessages += `Please enter a valid quantity for ${item.id} (between 0 and 10).\n`;
+        }
+    });
+
+    if (isValid) {
+        alert("Order submitted successfully!");
+        // Code to submit order to server can be added here
+    } else {
+        document.getElementById('error-messages').innerText = errorMessages;
+        document.getElementById('error-messages').style.display = 'block';
+    }
+}
+
+window.onload = function() {
+    updateTotal();
+}
+</script>
+</body>
+</html>
